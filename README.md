@@ -68,8 +68,8 @@ python main.py
 ```
 ## How it works
 
-1. Draw a Shape by maintain shift + left click to draw your shape (minimum 3 points for see shape), 
-2. once shape finish release shift, prompt input will appear, write your prompt and press enter to validate.
+1. Draw a Shape by maintain left shift + left click to draw your shape (minimum 3 points for see shape), 
+2. once shape finish release left shift, prompt input will appear, write your prompt and press enter to validate.
 
 
 ## Commands
