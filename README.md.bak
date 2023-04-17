@@ -66,17 +66,12 @@ cd StableDiffusionPygameInpaintIsometricMap
 ```bash
 python main.py
 ```
-## How it works
 
-1. Draw a Shape by maintain shift + left click to draw your shape (minimum 3 points for see shape), 
-2. once shape finish release shift, prompt input will appear, write your prompt and press enter to validate.
+## Command
 
-
-## Commands
-
-1. Press "Escape" : access the menu
-2. Draw a Shape : maintain shift + left click to draw your shape (minimum 3 points for see shape)
-3. Enter : validate your prompt 
+1. Press "Escape" : access the menu.
+2. Draw a Shape : press Maj + left click
+3. Enter your prompt and press enter
 
 ## Contributions
 
