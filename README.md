@@ -71,6 +71,12 @@ python main.py
 1. Draw a Shape by maintain left shift + left click to draw your shape (minimum 3 points for see shape), 
 2. once shape finish release left shift, prompt input will appear, write your prompt and press enter to validate.
 
+the file Config/config.py contains parameters of the game, especially the prompt.
+here is the default prompt use for demo :
+- "3d render, isometric %s, octane render, by greg rutkowski"
+- "%s" will be replaced by your prompt input in game
+
+models use in demo : v1-5-pruned-emaonly.ckpt
 
 ## Commands
 
