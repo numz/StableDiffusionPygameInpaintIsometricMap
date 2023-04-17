@@ -35,10 +35,10 @@ You can install pillow via pip using the following command:
 ```bash
 pip install pillow
 ```
-You can install pillow via pip using the following command:
+You can install requests via pip using the following command:
     
 ```bash
-pip install request
+pip install requests
 ```
 
 You can install Stable Diffusion Webui by following the instructions on the [Stable Diffusion Webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) repository.
