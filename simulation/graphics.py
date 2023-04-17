@@ -19,6 +19,7 @@ from config.config import Config
 
 class Graphics:
     def __init__(self):
+        self.dropdown = None
         self.config = Config()
         self.roads = None
         self.map_matrix = np.zeros((self.config.map.map_lines, self.config.map.map_columns))
@@ -46,6 +47,9 @@ class Graphics:
                                  fontSize=30, borderColour=(224, 186, 123), textColour=(0, 0, 0),
                                  onSubmit=self.new_map, radius=5, borderThickness=2)
         self.dropdown_active = False
+        self.reload_dropdown()
+
+    def reload_dropdown(self):
         choices = []
         values = []
         for map_name in os.listdir(self.config.folder.maps):
@@ -57,6 +61,7 @@ class Graphics:
             choices=choices, borderRadius=3, colour=(50, 150, 200), values=values, direction='down',
             textHAlign='left',  textColour=(0, 0, 0), textHMargin=10, textVMargin=10,
         )
+
 
     def init_new_map(self):
         map_matrix = np.empty((self.config.map.map_lines, self.config.map.map_columns), dtype=object)
@@ -220,19 +225,24 @@ class Graphics:
             self.draw_map()
             self.input_box_active = False
             self.display_menu = False
+            self.reload_dropdown()
+
 
     def load_saved_map(self):
         if self.dropdown.getSelected() is not None:
             self.objects_list_dynamic = []
             self.objects_list_static = []
             self.map_name = self.dropdown.getSelected()
-            with open(self.config.folder.maps + self.map_name + "/" + self.map_name + ".json", "r") as f:
-                map_data = json.load(f)
-            self.map_matrix = np.array(map_data["map_matrix"])
-            self.roads = map_data["roads"]
+            self.load_file_map(self.map_name)
             self.draw_map()
             self.input_box_active = False
             self.display_menu = False
+
+    def load_file_map(self, name):
+            with open(self.config.folder.maps + name + "/" + name + ".json", "r") as f:
+                map_data = json.load(f)
+            self.map_matrix = np.array(map_data["map_matrix"])
+            self.roads = map_data["roads"]
 
     def draw_map(self):
         for line in range(self.config.map.total_lines):
@@ -291,7 +301,7 @@ class Graphics:
         self.objects_list_dynamic = sorted(self.objects_list_dynamic, key=lambda k: k.order)
 
     def load_map(self):
-        self.init_new_map()
+        self.load_file_map(self.map_name)
         self.draw_map()
 
     def draw(self, camera_x, camera_y, time, time_speed, draw_decor):
