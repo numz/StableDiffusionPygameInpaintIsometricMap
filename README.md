@@ -14,32 +14,10 @@ To run this project, make sure you have the following installed on your machine:
 
 - Python 3.10 or higher
 - Pygame 2.0.0 or higher
-- Pygame-widgets 1.0.0
+- pygame-widgets 1.0.0
 - Pillow 9.4.0
-- Requests 2.2.25
+- requests 2.2.25
 - Stable diffusion webui automatic1111
-
-You can install Pygame via pip using the following command:
-
-```bash
-pip install pygame
-```
-You can install pygame-widgets via pip using the following command:
-
-```bash
-pip install pygame-widgets
-```
-
-You can install pillow via pip using the following command:
-
-```bash
-pip install pillow
-```
-You can install requests via pip using the following command:
-    
-```bash
-pip install requests
-```
 
 You can install Stable Diffusion Webui by following the instructions on the [Stable Diffusion Webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) repository.
 
@@ -62,7 +40,12 @@ git clone https://github.com/numz/StableDiffusionPygameInpaintIsometricMap.git
 cd StableDiffusionPygameInpaintIsometricMap
 ```
 
-4. Launch the game using the following command:
+4. Install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+5. Launch the game using the following command:
 ```bash
 python main.py
 ```
