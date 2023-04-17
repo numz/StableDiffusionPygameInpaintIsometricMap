@@ -15,8 +15,6 @@ To run this project, make sure you have the following installed on your machine:
 - Python 3.10 or higher
 - Pygame 2.0.0 or higher
 - pygame-widgets 1.0.0
-- Pillow 9.4.0
-- request 2.2.25
 - Stable diffusion webui automatic1111
 
 You can install Pygame via pip using the following command:
@@ -29,18 +27,6 @@ You can install pygame-widgets via pip using the following command:
 ```bash
 pip install pygame-widgets
 ```
-
-You can install pillow via pip using the following command:
-
-```bash
-pip install pillow
-```
-You can install pillow via pip using the following command:
-    
-```bash
-pip install request
-```
-
 You can install Stable Diffusion Webui by following the instructions on the [Stable Diffusion Webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) repository.
 
 
@@ -69,9 +55,7 @@ python main.py
 
 ## Command
 
-1. Press "Escape" : access the menu.
-2. Draw a Shape : press Maj + left click
-3. Enter your prompt and press enter
+Press "Escape" : access the menu.
 
 ## Contributions
 
