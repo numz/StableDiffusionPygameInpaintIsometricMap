@@ -69,6 +69,7 @@ in the "payloads" folder, "payload.json" contain payload used for stable diffusi
 1. Press "Escape" : access the menu
 2. Draw a Shape : maintain shift + left click to draw your shape (minimum 3 points for see shape)
 3. Enter : validate your prompt 
+4. arrow keys : move on the map 
 
 ## Contributions
 
