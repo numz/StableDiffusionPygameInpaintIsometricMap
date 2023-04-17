@@ -14,9 +14,9 @@ To run this project, make sure you have the following installed on your machine:
 
 - Python 3.10 or higher
 - Pygame 2.0.0 or higher
-- pygame-widgets 1.0.0
+- Pygame-widgets 1.0.0
 - Pillow 9.4.0
-- request 2.2.25
+- Requests 2.2.25
 - Stable diffusion webui automatic1111
 
 You can install Pygame via pip using the following command:
