@@ -329,7 +329,7 @@ class Graphics:
             elif not self.display_menu and obj.type == "button_menu":
                 obj.visible = False
             elif not self.display_menu and obj.type != "button_menu":
-                obj.draw(self.screen, camera_x, camera_y)
+                obj.draw(self.screen, camera_x, camera_y, time)
 
         if self.input_box_active:
             self.display_menu = False

@@ -21,7 +21,7 @@ class Shape(pygame.sprite.DirtySprite):
         print(self.shape_points)
 
     # Draw the shape on the screen
-    def draw(self, screen, camera_x, camera_y):
+    def draw(self, screen, camera_x, camera_y, time):
         if len(self.shape_points) > 2 and self.draw_shape:
             w, h = screen.get_size()
             # Create a mask surface with the size of the screen

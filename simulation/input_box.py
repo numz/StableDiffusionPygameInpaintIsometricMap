@@ -26,7 +26,7 @@ class InputBox(pygame.sprite.DirtySprite):
     decor = None
 
     # Initialize InputBox with position, dimensions, images, and other necessary attributes
-    def __init__(self, map_name, x, y, w, h, image, mask, text, objects_list):
+    def __init__(self, map_name, x, y, w, h, image, mask, text, objects_list, animation=False):
         self.config = Config()
         pygame.sprite.DirtySprite.__init__(self)
         self.map_name = map_name
@@ -40,6 +40,7 @@ class InputBox(pygame.sprite.DirtySprite):
         self.prompt = ""
         self.image = image
         self.mask = mask
+        self.animation = animation
         self.objects_list = objects_list
         self.title = self.text.font_sub.render("prompt: ", True, (0, 0, 0))
         self.prompt_input = self.text.font_sub.render(self.prompt, True, (0, 0, 0))
@@ -75,6 +76,12 @@ class InputBox(pygame.sprite.DirtySprite):
         self.payload["prompt"] = self.config.prompt.replace("%s", self.prompt)
         self.payload["width"] = self.w
         self.payload["height"] = self.h
+        if self.animation:
+            self.payload["denoising_strength"] = 0.2
+            self.payload["batch_count"] = 8
+        else:
+            self.payload["denoising_strength"] = 1
+
 
         response = requests.post(url=f'{self.url}', json=self.payload)
 
@@ -84,14 +91,15 @@ class InputBox(pygame.sprite.DirtySprite):
 
         path = self.config.folder.maps + self.map_name + "/"+ self.config.folder.decor
 
-        for i in r['images']:
+        for idx in range(len(r['images'])):
+            i = r['images'][idx]
             image = Image.open(io.BytesIO(base64.b64decode(i.split(",", 1)[0])))
             self.mask = Image.open(self.config.folder.temp+self.config.file.temp_mask)
             image = image.convert('RGBA')
             self.mask = self.mask.convert('L')
             image.putalpha(self.mask)
             image_name = path + '/image_' + str(self.id) + '_' + str(self.x) + '_' + str(self.y) + '_' + str(
-                self.w) + '_' + str(self.h) + '.png'
+                self.w) + '_' + str(self.h) +(str(idx).ljust(2,"0") if self.animation else )+ '.png'
             image.save(image_name)
 
             if self.decor is None:
@@ -124,7 +132,7 @@ class InputBox(pygame.sprite.DirtySprite):
         self.input_surface = input_surface
         self.rect.w = input_surface.get_width()
 
-    def draw(self, screen, camera_x, camera_y):
+    def draw(self, screen, camera_x, camera_y, time):
         # Limit camera movement
         position_x = self.x + camera_x
         position_y = self.y - (self.title.get_height() + 6) + camera_y

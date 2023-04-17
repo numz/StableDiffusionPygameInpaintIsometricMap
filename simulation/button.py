@@ -17,7 +17,7 @@ class Button:
         self.text_color = text_color
         self.visible = True
 
-    def draw(self, screen, camera_x, camera_y):
+    def draw(self, screen, camera_x, camera_y, time):
         if self.visible:
             mouse = pygame.mouse.get_pos()
             if self.x < mouse[0] < self.x + self.width and self.y < mouse[1] < self.y + self.height:

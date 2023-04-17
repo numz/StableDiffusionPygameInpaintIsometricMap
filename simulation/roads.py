@@ -12,6 +12,6 @@ class Road(pygame.sprite.DirtySprite):
         self.sprite = sprite
         self.deco = deco
 
-    def draw(self, screen, camera_x, camera_y):
+    def draw(self, screen, camera_x, camera_y, time):
         screen.blit(self.sprite, (self.x + camera_x, self.y + camera_y))
         screen.blit(self.deco, (self.x + camera_x, self.y + camera_y))

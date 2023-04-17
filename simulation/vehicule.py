@@ -69,7 +69,7 @@ class Vehicule(pygame.sprite.DirtySprite):
             self.y = self.sprites.start_y + self.line * self.sprites.move_y_x + self.col * self.sprites.move_y_y
 
     # Draws the vehicle on the screen
-    def draw(self, screen, camera_x, camera_y):
+    def draw(self, screen, camera_x, camera_y, time):
         if self.visible:
             screen.blit(self.sprite, (self.x + camera_x, self.y + camera_y))
             screen.blit(self.sprite, (self.x + camera_x, self.y + camera_y))
