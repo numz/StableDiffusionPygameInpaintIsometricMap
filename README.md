@@ -51,8 +51,8 @@ python main.py
 ```
 ## How it works
 
-- Draw a Shape by maintain left shift + left click to draw your shape (minimum 3 points for see shape), 
-- Once shape finish release left shift, prompt input will appear, write your prompt and press enter to validate.
+- Draw a Shape by maintain left shift key + left mouse click to draw your shape (minimum 3 points for see shape), 
+- Once shape finish release left shift key, prompt input will appear, write your prompt and press enter to validate.
 
 ## Stable diffusion payload
 the file Config/config.py contains parameters of the game, especially the prompt.
@@ -67,7 +67,7 @@ in the "payloads" folder, "payload.json" contain payload used for stable diffusi
 ## Commands
 
 1. Press "Escape" : access the menu
-2. Draw a Shape : maintain shift + left click to draw your shape (minimum 3 points for see shape)
+2. Draw a Shape : maintain left shift key + left click to draw your shape (minimum 3 points for see shape)
 3. Enter : validate your prompt 
 4. arrow keys : move on the map 
 
