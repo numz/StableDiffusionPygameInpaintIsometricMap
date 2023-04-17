@@ -51,15 +51,18 @@ python main.py
 ```
 ## How it works
 
-1. Draw a Shape by maintain left shift + left click to draw your shape (minimum 3 points for see shape), 
-2. once shape finish release left shift, prompt input will appear, write your prompt and press enter to validate.
+- Draw a Shape by maintain left shift + left click to draw your shape (minimum 3 points for see shape), 
+- Once shape finish release left shift, prompt input will appear, write your prompt and press enter to validate.
 
+## Stable diffusion payload
 the file Config/config.py contains parameters of the game, especially the prompt.
 here is the default prompt use for demo :
 - "3d render, isometric %s, octane render, by greg rutkowski"
 - "%s" will be replaced by your prompt input in game
 
 models use in demo : v1-5-pruned-emaonly.ckpt
+
+in the "payloads" folder, "payload.json" contain payload used for stable diffusion img2img endpoint, feel free to edit.
 
 ## Commands
 
