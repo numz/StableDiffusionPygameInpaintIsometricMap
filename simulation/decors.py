@@ -34,8 +34,16 @@ class DecorIa(pygame.sprite.DirtySprite):
         self.set_image(image)
 
     def set_image(self, image):
-        self.sprite = pygame.image.fromstring(image.tobytes(), image.size, image.mode).convert_alpha()
+        if self.animated:
+            self.sprite = []
+            for i in range(len(image)):
+                self.sprite.append(pygame.image.fromstring(image[i].tobytes(), image[i].size, image[i].mode).convert_alpha())
+        else:
+            self.sprite = pygame.image.fromstring(image.tobytes(), image.size, image.mode).convert_alpha()
 
     # Draws the decoration on the screen
     def draw(self, screen, camera_x, camera_y, time):
-        screen.blit(self.sprite, (self.x + camera_x, self.y + camera_y))
+        if self.animated:
+            screen.blit(self.sprite[time % len(self.sprite)], (self.x + camera_x, self.y + camera_y))
+        else:
+            screen.blit(self.sprite, (self.x + camera_x, self.y + camera_y))
