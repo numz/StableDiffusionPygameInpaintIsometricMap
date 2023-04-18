@@ -60,11 +60,11 @@ python main.py
 ```
 ## How it works
 ### Create elements
-- Draw a Shape by maintain left shift key + left mouse click to draw your shape (minimum 3 points for see shape. Color shape will be red), 
+- Draw a Shape by maintain left shift key + left mouse click to draw your shape (minimum 3 points for see shape. Shape color will be red), 
 - Once shape finish release left shift key, prompt input will appear, write your prompt and press enter to validate.
 ### Create animations
 - First, you need to create an element to animate (see "Create elements" section)
-- Draw a Shape by maintain left Ctrl key + left mouse click to draw your shape (minimum 3 points for see shape. Color shape will be blue), 
+- Draw a Shape by maintain left Ctrl key + left mouse click to draw your shape (minimum 3 points for see shape. Shape color will be blue), 
 - Once shape finish release left Ctrl key, prompt input will appear, write your prompt and press enter to validate.
 
 Note that the prompt does not have much influence on the outcome, but it is still recommended to have a prompt closely related to the description of the object being addressed. For example: If you want to animate water, include 'water' in the prompt.
