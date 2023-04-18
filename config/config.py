@@ -20,12 +20,13 @@ class Config:
             maps="maps/",
             temp="temp/",
             decor="decor/",
+            decor_animated="decor_animated/",
             payloads="payloads/",
         )
         self.file = SimpleNamespace(
             # File
             temp_mask="shape_mask.png",
-            temp_capture="shape_capture.png"
+            temp_capture="shape_capture.png",
         )
         self.action = SimpleNamespace(
             # Action button unicode
@@ -35,6 +36,8 @@ class Config:
             time_speed_down=pygame.K_KP_MINUS,
         )
         self.prompt = "3d render, isometric %s, octane render, by greg rutkowski"
+        self.prompt_denoising_strength_animation = 0.2
+        self.prompt_denoising_strength = 1
 
 
 

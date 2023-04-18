@@ -1,5 +1,5 @@
 import pygame
-
+from PIL import Image
 
 class Decor(pygame.sprite.DirtySprite):
     type = "decor"
@@ -29,21 +29,30 @@ class DecorIa(pygame.sprite.DirtySprite):
         self.x = x
         self.y = y
         self.animated = animated
-        self.w = image.width
-        self.h = image.height
+        if self.animated:
+            self.order = 4
+            self.w = image[0].width
+            self.h = image[0].height
+        else:
+            self.w = image.width
+            self.h = image.height
         self.set_image(image)
 
     def set_image(self, image):
         if self.animated:
             self.sprite = []
             for i in range(len(image)):
-                self.sprite.append(pygame.image.fromstring(image[i].tobytes(), image[i].size, image[i].mode).convert_alpha())
+                # blend current sprite with next sprite
+                idx = (i + 1) % len(image)
+                for j in range(1, 4):
+                    im2 = Image.blend(image[i], image[idx], j / 4)
+                    self.sprite.append(pygame.image.fromstring(im2.tobytes(), image[i].size, image[i].mode).convert_alpha())
         else:
             self.sprite = pygame.image.fromstring(image.tobytes(), image.size, image.mode).convert_alpha()
 
     # Draws the decoration on the screen
     def draw(self, screen, camera_x, camera_y, time):
         if self.animated:
-            screen.blit(self.sprite[time % len(self.sprite)], (self.x + camera_x, self.y + camera_y))
+            screen.blit(self.sprite[int(time % len(self.sprite))], (self.x + camera_x, self.y + camera_y))
         else:
             screen.blit(self.sprite, (self.x + camera_x, self.y + camera_y))

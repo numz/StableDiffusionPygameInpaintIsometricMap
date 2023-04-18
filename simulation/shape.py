@@ -9,16 +9,18 @@ class Shape(pygame.sprite.DirtySprite):
     order = 9
     shape_points = []
     draw_shape = True
+    shape_color = (255, 0, 0)
 
     # Initialize Shape object
-    def __init__(self):
+    def __init__(self, animated=False):
         pygame.sprite.DirtySprite.__init__(self)
+        if animated:
+            self.shape_color = (0, 0, 255)
         self.shape_points = []
 
     # Add a point to the shape when the user clicks on the screen
     def add_point(self, event):
         self.shape_points.append(event.pos)
-        print(self.shape_points)
 
     # Draw the shape on the screen
     def draw(self, screen, camera_x, camera_y, time):
@@ -33,6 +35,6 @@ class Shape(pygame.sprite.DirtySprite):
             # Fill the mask with black color
             mask.fill((0, 0, 0))
             # Draw the polygon on the mask using the shape points
-            pygame.draw.polygon(mask, (255, 0, 0), self.shape_points)
+            pygame.draw.polygon(mask, self.shape_color, self.shape_points)
             # Draw the mask on the screen
             screen.blit(mask, (0, 0))

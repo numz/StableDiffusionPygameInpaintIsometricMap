@@ -13,7 +13,7 @@ class Game:
         self.input = Input()
         self.time = 360
         self.pause = False
-        self.time_speed = 0.1
+        self.time_speed = 0.2
         self.camera_x = -40
         self.camera_y = 40
         self.draw_shape = False
@@ -55,12 +55,18 @@ class Game:
                 elif event.key == pygame.K_LSHIFT:
                     self.draw_shape = True
                     self.graphics.begin_shape()
+                elif event.key == pygame.K_LCTRL:
+                    self.draw_shape = True
+                    self.graphics.begin_shape(True)
 
             elif event.type == pygame.KEYUP:
                 # Disable drawing shape
                 if event.key == pygame.K_LSHIFT:
                     self.draw_shape = False
                     self.graphics.save_shape(self.camera_x, self.camera_y)
+                elif event.key == pygame.K_LCTRL:
+                    self.draw_shape = False
+                    self.graphics.save_shape(self.camera_x, self.camera_y, True)
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # Add shape point on mouse click

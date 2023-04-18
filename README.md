@@ -1,12 +1,21 @@
-# Pygame Customizable Isometric Map With Stable Diffusion 
+# Pygame Customizable Isometric Map Animation With Stable Diffusion 
 
 ## Description
 
-This technical demo is an open-source project that allows users to customize the appearance and design of the map in game with stable diffusion. You can modify graphical elements to create your own unique version map.
+This technical demo is an open-source project that allows users to customize the appearance and design of the map in game with stable diffusion.
+You can modify graphical elements to create your own unique version map.
 
 ![Gameplay Demo](temp/demo.gif)
 
 full video demo here : https://youtu.be/vJml7Hf4jPs
+
+![Gameplay Demo](temp/demo2.gif)
+
+full animation video demo here : https://www.youtube.com/watch?v=dwrt-kQ-xl4
+
+## Features:
+- Create your own map with stable diffusion
+- Create animation of parts of the map
 
 ## Prerequisites
 
@@ -50,9 +59,26 @@ pip install -r requirements.txt
 python main.py
 ```
 ## How it works
-
-- Draw a Shape by maintain left shift key + left mouse click to draw your shape (minimum 3 points for see shape), 
+### Create elements
+- Draw a Shape by maintain left shift key + left mouse click to draw your shape (minimum 3 points for see shape. Color shape will be red), 
 - Once shape finish release left shift key, prompt input will appear, write your prompt and press enter to validate.
+### Create animations
+- First, you need to create an element to animate (see "Create elements" section)
+- Draw a Shape by maintain left Ctrl key + left mouse click to draw your shape (minimum 3 points for see shape. Color shape will be blue), 
+- Once shape finish release left Ctrl key, prompt input will appear, write your prompt and press enter to validate.
+
+Note that the prompt does not have much influence on the outcome, but it is still recommended to have a prompt closely related to the description of the object being addressed. For example: If you want to animate water, include 'water' in the prompt.
+
+
+You can animate a lot of kind of elements, for example :
+- water
+- fire
+- lava
+- smoke
+- clouds
+- grass
+- trees
+- etc...
 
 ## Stable diffusion payload
 the file Config/config.py contains parameters of the game, especially the prompt.
@@ -67,9 +93,17 @@ in the "payloads" folder, "payload.json" contain payload used for stable diffusi
 ## Commands
 
 1. Press "Escape" : access the menu
-2. Draw a Shape : maintain left shift key + left click to draw your shape (minimum 3 points for see shape)
-3. Enter : validate your prompt 
-4. arrow keys : move on the map 
+2. Draw a Shape for inpainting : maintain left shift key + left click to draw your shape (minimum 3 points for see shape)
+3. Draw a Shape for animation : maintain left ctrl key + left click to draw your shape (minimum 3 points for see shape)
+4. Enter : validate your prompt 
+5. arrow keys : move on the map
+6. "+" key : speed up time
+7. "-" key : slow down time
+
+## To do
+- [ ] Add key control for stable diffusion parameters
+- [ ] Create Tile editor
+
 
 ## Contributions
 

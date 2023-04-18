@@ -67,7 +67,7 @@ class InputBox(pygame.sprite.DirtySprite):
             if len([x for x in self.objects_list if x.type == "decorIa"]) == 0:
                 self.id = 1
             else:
-                self.id = [x for x in self.objects_list if x.type == "decorIa"][-1].id + 1
+                self.id = max([x.id for x in self.objects_list if x.type == "decorIa"]) + 1
 
         image = open(self.config.folder.temp+self.config.file.temp_capture, "rb").read()
         image_mask = open(self.config.folder.temp+self.config.file.temp_mask, "rb").read()
@@ -77,33 +77,40 @@ class InputBox(pygame.sprite.DirtySprite):
         self.payload["width"] = self.w
         self.payload["height"] = self.h
         if self.animation:
-            self.payload["denoising_strength"] = 0.2
-            self.payload["batch_count"] = 8
+            self.payload["denoising_strength"] = self.config.prompt_denoising_strength_animation
+            batch_count = 8
         else:
-            self.payload["denoising_strength"] = 1
+            self.payload["denoising_strength"] = self.config.prompt_denoising_strength
+            batch_count = 1
+        folder = self.config.folder.decor_animated if self.animation else self.config.folder.decor
+        path = self.config.folder.maps + self.map_name + "/" + folder
+        if not os.path.exists(path):
+            os.makedirs(path)
+        images = []
+        for batch in range(batch_count):
+            response = requests.post(url=f'{self.url}', json=self.payload)
+            r = response.json()
+            for idx in range(len(r['images'])):
+                i = r['images'][idx]
+                image = Image.open(io.BytesIO(base64.b64decode(i.split(",", 1)[0])))
+                next_image = image
+                self.mask = Image.open(self.config.folder.temp+self.config.file.temp_mask)
+                image = image.convert('RGBA')
+                self.mask = self.mask.convert('L')
+                image.putalpha(self.mask)
+                image_name = path + '/image_' + str(self.id) + '_' + str(self.x) + '_' + str(self.y) + '_' + str(
+                    self.w) + '_' + str(self.h) + ("_"+str(batch).rjust(2, "0") if self.animation else "") + '.png'
+                image.save(image_name)
+                images.append(image)
 
-
-        response = requests.post(url=f'{self.url}', json=self.payload)
-
-        r = response.json()
-        if not os.path.exists(self.config.folder.maps + self.map_name + self.config.folder.decor):
-            os.makedirs(self.config.folder.maps + self.map_name + self.config.folder.decor)
-
-        path = self.config.folder.maps + self.map_name + "/"+ self.config.folder.decor
-
-        for idx in range(len(r['images'])):
-            i = r['images'][idx]
-            image = Image.open(io.BytesIO(base64.b64decode(i.split(",", 1)[0])))
-            self.mask = Image.open(self.config.folder.temp+self.config.file.temp_mask)
-            image = image.convert('RGBA')
-            self.mask = self.mask.convert('L')
-            image.putalpha(self.mask)
-            image_name = path + '/image_' + str(self.id) + '_' + str(self.x) + '_' + str(self.y) + '_' + str(
-                self.w) + '_' + str(self.h) +(str(idx).ljust(2,"0") if self.animation else )+ '.png'
-            image.save(image_name)
-
-            if self.decor is None:
+        if self.decor is None:
+            if self.animation:
+                self.decor = DecorIa(self.id, self.x, self.y, images, self.animation)
+            else:
                 self.decor = DecorIa(self.id, self.x, self.y, image)
+        else:
+            if self.animation:
+                self.decor.set_image(images)
             else:
                 self.decor.set_image(image)
 
@@ -111,7 +118,6 @@ class InputBox(pygame.sprite.DirtySprite):
         if event.type == pygame.KEYDOWN:
             if self.active:
                 if event.key == pygame.K_RETURN:
-
                     print(self.prompt)
                     self.create_image()
 

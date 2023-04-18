@@ -113,15 +113,15 @@ class Graphics:
 
     def capture(self, name, pos, size, camera_x, camera_y):  # (pygame Surface, String, tuple, tuple)
         for obj in self.objects_list_static:
-            obj.draw(self.screen, camera_x, camera_y)
+            obj.draw(self.screen, camera_x, camera_y, 0)
         for obj in self.objects_list_dynamic:
             if obj.type != "shape":
-                obj.draw(self.screen, camera_x, camera_y)
+                obj.draw(self.screen, camera_x, camera_y, 0)
         image = pygame.Surface(size)  # Create image surface
         image.blit(self.screen, (0, 0), (pos, size))  # Blit portion of the display to the image
         pygame.image.save(image, name)  # Save the image to the disk**
 
-    def save_shape(self, camera_x, camera_y):
+    def save_shape(self, camera_x, camera_y, animated = False):
         self.drawing = False
         if len(self.shape.shape_points) >= 3:
             x = min(self.shape.shape_points, key=lambda x: x[0])[0]
@@ -151,16 +151,17 @@ class Graphics:
                 InputBox(self.map_name, x - camera_x, y - camera_y, w, h,
                          self.config.folder.temp+self.config.file.temp_capture,
                          self.config.folder.temp+self.config.file.temp_mask,
-                         self.text, self.objects_list_static))
+                         self.text, self.objects_list_static, animated))
         else:
             self.objects_list_dynamic = [x for x in self.objects_list_dynamic if x.type != "shape"]
 
     def add_shape_point(self, event):
         self.shape.add_point(event)
 
-    def begin_shape(self):
+    def begin_shape(self, animated=False):
         self.objects_list_dynamic = [x for x in self.objects_list_dynamic if x.type != "shape" and x.type != "inputBox"]
-        self.shape = Shape()
+
+        self.shape = Shape(animated)
         self.objects_list_dynamic.append(self.shape)
         self.drawing = True
 
@@ -267,10 +268,35 @@ class Graphics:
                     _, id_img, x, y, w, h = file.name.replace(".png", "").split("_")
                     image = Image.open(path + file.name)
                     decors_ia.append([int(id_img), int(x), int(y), int(w), int(h), image])
-            decors_ia = sorted(decors_ia, key=lambda x: x[0])
+            decors_ia = sorted(decors_ia, key=lambda id_img: id_img[0])
 
             for id_decor, x, y, w, h, image in decors_ia:
                 self.objects_list_static.append(DecorIa(id_decor, x, y, image))
+
+            path = self.config.folder.maps + self.map_name + "/" + self.config.folder.decor_animated
+            if os.path.isdir(path):
+                decors_ia = []
+                if os.path.isdir(path):
+                    for file in os.scandir(path):
+                        _, id_img, x, y, w, h, timecode = file.name.replace(".png", "").split("_")
+                        image = Image.open(path + file.name)
+                        decors_ia.append([int(id_img), int(x), int(y), int(w), int(h), image])
+                decors_ia = sorted(decors_ia, key=lambda id_img: id_img[0])
+                last_id = ""
+                last_x = 0
+                last_y = 0
+                images = []
+                for id_decor, x, y, w, h, image in decors_ia:
+                    if last_id != id_decor and last_id != "":
+                        self.objects_list_static.append(DecorIa(last_id, last_x, last_y, images, animated=True))
+                        images = []
+                    images.append(image)
+                    last_id = id_decor
+                    last_x = x
+                    last_y = y
+
+
+                self.objects_list_static.append(DecorIa(id_decor, x, y, images, animated=True))
 
         for line in range(len(self.map_matrix)):
             for col in range(len(self.map_matrix[0])):
@@ -318,13 +344,13 @@ class Graphics:
                                     -camera_x + self.screen_width > obj.x > -camera_x and -camera_y + self.screen_height > obj.y + obj.h > -camera_y) or \
                             (
                                     -camera_x + self.screen_width > obj.x + obj.w > -camera_x and -camera_y + self.screen_height > obj.y + obj.h > -camera_y):
-                        obj.draw(self.screen, camera_x, camera_y)
+                        obj.draw(self.screen, camera_x, camera_y, time)
             else:
-                obj.draw(self.screen, camera_x, camera_y)
+                obj.draw(self.screen, camera_x, camera_y, time)
 
         for obj in self.objects_list_dynamic:
             if self.display_menu and obj.type == "button_menu":
-                obj.draw(self.screen, camera_x, camera_y)
+                obj.draw(self.screen, camera_x, camera_y, time)
                 obj.visible = True
             elif not self.display_menu and obj.type == "button_menu":
                 obj.visible = False
