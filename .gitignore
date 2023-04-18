@@ -2,3 +2,4 @@
 .idea/*
 temp/demo.mp4
 simulation/__pycache__/*
+config/__pycache__/*
