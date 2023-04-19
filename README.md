@@ -21,7 +21,7 @@ full animation video demo here : https://www.youtube.com/watch?v=dwrt-kQ-xl4
 
 To run this project, make sure you have the following installed on your machine:
 
-- Python 3.10 or higher
+- Python 3.10 or higher 
 - Pygame 2.0.0 or higher
 - pygame-widgets 1.0.0
 - Pillow 9.4.0
