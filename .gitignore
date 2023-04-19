@@ -1,5 +1,5 @@
 # Default ignored files
-.idea/*
+.idea
 temp/demo.mp4
-simulation/__pycache__/*
-config/__pycache__/*
+simulation/__pycache__/
+config/__pycache__/
