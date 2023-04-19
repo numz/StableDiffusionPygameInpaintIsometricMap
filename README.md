@@ -14,7 +14,7 @@ full video demo here : https://youtu.be/vJml7Hf4jPs
 full animation video demo here : https://www.youtube.com/watch?v=dwrt-kQ-xl4
 
 ##Features:
-- Create your own map with stable distribution
+- Create your own map with stable diffusion
 - Generate animations for specific elements of the map
 
 ## Prerequisites
