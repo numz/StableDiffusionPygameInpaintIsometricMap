@@ -34,9 +34,5 @@ To request new features, also create an issue with a detailed description of the
 
 We are committed to maintaining a respectful and inclusive environment. Please follow the [Code of Conduct](CODE_OF_CONDUCT.md) when interacting with other community members.
 
-## Contact
-
-If you have any questions or concerns, please contact the project maintainers at numzzz@hotmail.com.
-
 Thank you for contributing to StableDiffusionPygameInpaintIsometricMap
 !
